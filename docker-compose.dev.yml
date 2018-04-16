@@ -1,0 +1,66 @@
+version: "2"
+services:
+  szurubooru:
+    build:
+      context: .
+      dockerfile: docker/szurubooru/Dockerfile
+    depends_on:
+      - elasticsearch
+      - database
+    networks:
+      - default
+    volumes:
+      - ./client:/yfbooru/client
+      - ./server:/yfbooru/server
+      - ./config.dev.yaml:/yfbooru/config.yaml
+      - ./config.yaml.dist:/yfbooru/config.yaml.dist
+    restart: unless-stopped
+
+  database:
+    env_file:
+      - setting.env
+    image: postgres:alpine
+    networks:
+      - default
+    volumes:
+      - database:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.2.3
+    environment:
+      - cluster.name=docker-cluster
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    networks:
+      - default
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend/Dockerfile
+    depends_on:
+      - szurubooru
+    ports:
+      - "8080:80"
+    networks:
+      - default
+    volumes:
+      - ./client/public:/yfbooru/client/public
+      - ./docker/frontend/nginx.conf:/etc/nginx/nginx.conf
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  database:
+  esdata:

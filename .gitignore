@@ -1,4 +1,7 @@
-config.yaml
 */*_modules/
 .coverage
 .cache
+*.py[co]
+setting.env
+config.dev.yaml
+config.production.yaml

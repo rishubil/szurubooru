@@ -1,0 +1,17 @@
+version: '2'
+services:
+  node:
+    build: docker/node
+    networks:
+      - default
+    volumes:
+      - .:/yfbooru
+      - ./config.production.yaml:/yfbooru/config.yaml
+      - node:/yfbooru/client/node_modules
+
+networks:
+  default:
+    driver: bridge
+
+volumes:
+  node:
