@@ -12,7 +12,7 @@ services:
     volumes:
       - ./client:/yfbooru/client
       - ./server:/yfbooru/server
-      - ./config.dev.yaml:/yfbooru/config.yaml
+      - ./config.production.yaml:/yfbooru/config.yaml
       - ./config.yaml.dist:/yfbooru/config.yaml.dist
     restart: unless-stopped
 
