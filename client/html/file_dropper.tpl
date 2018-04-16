@@ -2,12 +2,12 @@
     <input type='file' id='<%- ctx.id %>'/>
     <label class='file-dropper' for='<%- ctx.id %>' role='button'>
         <% if (ctx.allowMultiple) { %>
-            Drop files here!
+            여기에 파일을 드래그 &amp; 드랍!
         <% } else { %>
-            Drop file here!
+            여기에 파일을 드래그 &amp; 드랍!
         <% } %>
         <br/>
-        Or just click on this box.
+        또는 그냥 클릭하세요.
         <% if (ctx.extraText) { %>
             <br/>
             <small><%= ctx.extraText %></small>
@@ -17,9 +17,9 @@
         <div class='url-holder'>
             <input type='text' name='url' placeholder='<%- ctx.urlPlaceholder %>'/>
             <% if (ctx.lock) { %>
-                <button>Confirm</button>
+                <button>적용</button>
             <% } else { %>
-                <button>Add URL</button>
+                <button>URL 추가</button>
             <% } %>
         </div>
     <% } %>

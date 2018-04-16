@@ -5,3 +5,4 @@
 setting.env
 config.dev.yaml
 config.production.yaml
+*.sql

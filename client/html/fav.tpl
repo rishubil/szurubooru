@@ -10,6 +10,6 @@
     <a class='add-favorite inactive'>
         <i class='fa fa-heart-o'></i>
 <% } %>
-    <span class='vim-nav-hint'>add to favorites</span>
+    <span class='vim-nav-hint'>오늘은 이거다</span>
 </a>
 <span class='value'><%- ctx.favoriteCount %></span>

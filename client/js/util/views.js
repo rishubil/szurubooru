@@ -237,10 +237,10 @@ function makeFlexboxAlign(options) {
 }
 
 function makeAccessKey(html, key) {
-    const regex = new RegExp('(' + key + ')', 'i');
-    html = html.replace(
-        regex, '<span class="access-key" data-accesskey="$1">$1</span>');
-    return html;
+    if (key === null) {
+        return html;
+    }
+    return html + '(<span class="access-key" data-accesskey="' + key + '">' + key + '</span>)';
 }
 
 function _serializeElement(name, attributes) {

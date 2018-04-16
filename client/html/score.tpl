@@ -5,8 +5,8 @@
         <% } else { %>
             <i class='fa fa-thumbs-o-up'></i>
         <% } %>
-        <span class='vim-nav-hint'>upvote</span>
-        <span class='vim-nav-hint'>like</span>
+        <span class='vim-nav-hint'>추천</span>
+        <span class='vim-nav-hint'>추천</span>
     </a>
 <% } else { %>
     <a class='upvote inactive'>
@@ -21,7 +21,7 @@
         <% } else { %>
             <i class='fa fa-thumbs-o-down'></i>
         <% } %>
-        <span class='vim-nav-hint'>downvote</span>
-        <span class='vim-nav-hint'>dislike</span>
+        <span class='vim-nav-hint'>비추천</span>
+        <span class='vim-nav-hint'>비추천</span>
     </a>
 <% } %>

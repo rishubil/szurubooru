@@ -5,10 +5,10 @@
     </header>
     <% if (ctx.canListPosts) { %>
         <form class='horizontal'>
-            <%= ctx.makeTextInput({name: 'search-text', placeholder: 'enter some tags'}) %>
-            <input type='submit' value='Search'/>
-            <span class=sep>or</span>
-            <a href='<%- ctx.formatClientLink('posts') %>'>browse all posts</a>
+            <%= ctx.makeTextInput({name: 'search-text', placeholder: '태그 입력'}) %>
+            <input type='submit' value='검색'/>
+            <span class=sep>또는</span>
+            <a href='<%- ctx.formatClientLink('posts') %>'>모든 짤 보기</a>
         </form>
     <% } %>
     <div class='post-info-container'></div>

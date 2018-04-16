@@ -74,17 +74,17 @@ class TopNavigation extends events.EventTarget {
 
 function _makeTopNavigation() {
     const ret = new TopNavigation();
-    ret.add('home', new TopNavigationItem('H', 'Home', '/'));
-    ret.add('posts', new TopNavigationItem('P', 'Posts', '/posts'));
-    ret.add('upload', new TopNavigationItem('U', 'Upload', '/upload'));
-    ret.add('comments', new TopNavigationItem('C', 'Comments', '/comments'));
-    ret.add('tags', new TopNavigationItem('T', 'Tags', '/tags'));
-    ret.add('users', new TopNavigationItem('S', 'Users', '/users'));
-    ret.add('account', new TopNavigationItem('A', 'Account', '/user/{me}'));
-    ret.add('register', new TopNavigationItem('R', 'Register', '/register'));
-    ret.add('login', new TopNavigationItem('L', 'Log in', '/login'));
-    ret.add('logout', new TopNavigationItem('O', 'Logout', '/logout'));
-    ret.add('help', new TopNavigationItem('E', 'Help', '/help'));
+    ret.add('home', new TopNavigationItem('H', '대문', '/'));
+    ret.add('posts', new TopNavigationItem('P', '짤', '/posts'));
+    ret.add('upload', new TopNavigationItem('U', '업로드', '/upload'));
+    ret.add('comments', new TopNavigationItem('C', '댓글', '/comments'));
+    ret.add('tags', new TopNavigationItem('T', '태그', '/tags'));
+    ret.add('users', new TopNavigationItem('S', '사용자', '/users'));
+    ret.add('account', new TopNavigationItem('A', '계정', '/user/{me}'));
+    ret.add('register', new TopNavigationItem('R', '가입', '/register'));
+    ret.add('login', new TopNavigationItem('L', '로그인', '/login'));
+    ret.add('logout', new TopNavigationItem('O', '로그아웃', '/logout'));
+    ret.add('help', new TopNavigationItem('E', '정보', '/help'));
     ret.add(
         'settings',
         new TopNavigationItem(

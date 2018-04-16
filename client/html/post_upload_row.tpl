@@ -47,7 +47,11 @@
                         <%= ctx.makeRadio({
                             name: 'safety-' + ctx.uploadable.key,
                             value: safety,
-                            text: safety[0].toUpperCase() + safety.substr(1),
+                            text: {
+                                'safe': '안-전',
+                                'sketchy': 'ㅗㅜㅑ',
+                                'unsafe': '퍄퍄퍄퍄퍄',
+                            }[safety],
                             selectedValue: ctx.uploadable.safety,
                         }) %>
                     <% } %>
@@ -58,7 +62,7 @@
                 <% if (ctx.canUploadAnonymously) { %>
                     <div class='anonymous'>
                         <%= ctx.makeCheckbox({
-                            text: 'Upload anonymously',
+                            text: '익명으로 업로드',
                             name: 'anonymous',
                             checked: ctx.uploadable.anonymous,
                         }) %>
@@ -68,7 +72,7 @@
                 <% if (['video'].includes(ctx.uploadable.type)) { %>
                     <div class='loop-video'>
                         <%= ctx.makeCheckbox({
-                            text: 'Loop video',
+                            text: '동영상 반복',
                             name: 'loop-video',
                             checked: ctx.uploadable.flags.includes('loop'),
                         }) %>
@@ -87,14 +91,14 @@
                                 <%= ctx.makeThumbnail(lookalike.post.thumbnailUrl) %>
                             </a>
                             <div class='description'>
-                                Similar post: <%= ctx.makePostLink(lookalike.post.id, true) %>
+                                유사 짤: <%= ctx.makePostLink(lookalike.post.id, true) %>
                                 <br/>
-                                <%- Math.round((1-lookalike.distance) * 100) %>% match
+                                <%- Math.round((1-lookalike.distance) * 100) %>% 일치
                             </div>
                             <div class='controls'>
-                                <%= ctx.makeCheckbox({text: 'Copy tags', name: 'copy-tags'}) %>
+                                <%= ctx.makeCheckbox({text: '태그 복사해오기', name: 'copy-tags'}) %>
                                 <br/>
-                                <%= ctx.makeCheckbox({text: 'Add relation', name: 'add-relation'}) %>
+                                <%= ctx.makeCheckbox({text: '관련 짤로 추가', name: 'add-relation'}) %>
                             </div>
                         </li>
                     <% } %>

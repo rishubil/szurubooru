@@ -15,8 +15,8 @@
         <header>
             <nav class='edit tabs'>
                 <ul>
-                    <li class='edit'><a href>Write</a></li>
-                    <li class='preview'><a href>Preview</a></li>
+                    <li class='edit'><a href>작성</a></li>
+                    <li class='preview'><a href>미리보기</a></li>
                 </ul>
             </nav>
 
@@ -26,7 +26,7 @@
                         %><a href='<%- ctx.formatClientLink('user', ctx.user.name) %>'><%
                     %><% } %><%
 
-                    %><%- ctx.user ? ctx.user.name : 'Deleted user' %><%
+                    %><%- ctx.user ? ctx.user.name : '삭제된 사용자' %><%
 
                     %><% if (ctx.user && ctx.user.name && ctx.canViewUsers) { %><%
                         %></a><%
@@ -34,7 +34,7 @@
                 %></span></strong>
 
                 <span class='date'><%
-                    %>commented <%= ctx.makeRelativeTime(ctx.comment ? ctx.comment.creationTime : null) %><%
+                    %>님이  <%= ctx.makeRelativeTime(ctx.comment ? ctx.comment.creationTime : null) %><%
                 %></span><%
 
                 %><wbr><%
@@ -45,13 +45,13 @@
                     %><span class='action-container'><%
                         %><% if (ctx.canEditComment) { %><%
                             %><a href class='edit'><%
-                                %><i class='fa fa-pencil'></i>&nbsp;edit<%
+                                %><i class='fa fa-pencil'></i>&nbsp;수정<%
                             %></a><%
                         %><% } %><%
 
                         %><% if (ctx.canDeleteComment) { %><%
                             %><a href class='delete'><%
-                                %><i class='fa fa-remove'></i>&nbsp;delete<%
+                                %><i class='fa fa-remove'></i>&nbsp;삭제<%
                             %></a><%
                         %><% } %><%
                     %></span><%
