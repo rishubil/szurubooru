@@ -1,38 +1,38 @@
-<p>Comments support Markdown syntax, extended by some handy tags:</p>
+<p>댓글은 다음 키워드를 추가한 마크다운 문법을 지원합니다.</p>
 
 <table>
     <tbody>
         <tr>
-            <td><code>@426</code></td>
-            <td>links to post number 426</td>
+            <td><code>@171</code></td>
+            <td>171번 짤 링크</td>
         </tr>
         <tr>
-            <td><code>#Dragon_Ball</code></td>
-            <td>links to tag &ldquo;Dragon_Ball&rdquo;</td>
+            <td><code>#여까</code></td>
+            <td>&ldquo;여까&rdquo; 태그 링크</td>
         </tr>
         <tr>
-            <td><code>+Pirate</code></td>
-            <td>links to user &ldquo;Pirate&rdquo;</td>
+            <td><code>+Yeokka</code></td>
+            <td>&ldquo;Yeokka&rdquo; 사용자 링크</td>
         </tr>
         <tr>
-            <td><code>~~new~~</code></td>
-            <td>adds strike-through</td>
+            <td><code>~~흠좀무~~</code></td>
+            <td>취소선</td>
         </tr>
         <tr>
-            <td><code>[spoiler]Lelouch survives[/spoiler]</td>
-            <td>marks text as spoiler and hides it</td>
+            <td><code>[spoiler]범인은 절름발이[/spoiler]</td>
+            <td>스포일러 텍스트 표시 및 숨김</td>
         </tr>
         <tr>
             <td><code>[sjis](´･ω･`)[/sjis]</td>
-            <td>adds SJIS art</td>
+            <td><a href="https://en.wikipedia.org/wiki/Shift_JIS_art" target="_blank">SJIS 아트</a> 추가</td>
         </tr>
     </tbody>
 </table>
 
-<p>You can also specify the size of embedded images like this:</p>
+<p>이미지 문법의 크기 지정은 다음과 같습니다.</p>
 
 <ul>
-<li><code>![alt](href =WIDTHx "title")</code></li>
-<li><code>![alt](href =xHEIGHT "title")</code></li>
-<li><code>![alt](href =WIDTHxHEIGHT "title")</code></li>
+<li><code>![alt](href =너비x "제목")</code></li>
+<li><code>![alt](href =x높이 "제목")</code></li>
+<li><code>![alt](href =너비x높이 "제목")</code></li>
 </ul>

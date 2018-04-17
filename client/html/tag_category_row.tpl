@@ -29,15 +29,15 @@
     <% if (ctx.canDelete) { %>
         <td class='remove'>
             <% if (ctx.tagCategory.tagCount) { %>
-                <a class='inactive' title="Can't delete category in use">Remove</a>
+                <a class='inactive' title="Can't delete category in use">삭제</a>
             <% } else { %>
-                <a href>Remove</a>
+                <a href>삭제</a>
             <% } %>
         </td>
     <% } %>
     <% if (ctx.canSetDefault) { %>
         <td class='set-default'>
-            <a href>Make default</a>
+            <a href>기본으로 설정</a>
         </td>
     <% } %>
 </tr>

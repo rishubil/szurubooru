@@ -1,7 +1,7 @@
 <div class='tag-input'>
     <div class='main-control'>
-        <input type='text' placeholder='type to add…'/>
-        <button>Add</button>
+        <input type='text' placeholder='추가하기 위해 입력'/>
+        <button>추가</button>
     </div>
 
     <div class='tag-suggestions'>
@@ -11,7 +11,7 @@
                     <a href class='opacity'><i class='fa fa-eye'></i></a>
                     <a href class='close'>×</a>
                 </span>
-                Suggested tags
+                추천 태그
             </p>
             <ul></ul>
         </div>

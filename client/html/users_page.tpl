@@ -19,8 +19,8 @@
                             </a>
                         <% } %>
                         <br/>
-                        Registered: <%= ctx.makeRelativeTime(user.creationTime) %><br/>
-                        Last seen: <%= ctx.makeRelativeTime(user.lastLoginTime) %>
+                        가입일: <%= ctx.makeRelativeTime(user.creationTime) %><br/>
+                        최근 로그인: <%= ctx.makeRelativeTime(user.lastLoginTime) %>
                     </div>
                 </div>
             </li><!--

@@ -23,7 +23,7 @@
                 type: ctx.post.mimeType,
                 src: ctx.post.contentUrl,
             }),
-            'Your browser doesn\'t support HTML5 videos.')
+            '브라우저가 HTML5 동영상을 지원하지 않습니다.')
         %>
 
     <% } else { console.log(new Error('Unknown post type')); } %>

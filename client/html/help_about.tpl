@@ -1,13 +1,7 @@
-<p>Szurubooru is an image board engine inspired by services such as Danbooru,
-Gelbooru and Moebooru. Its name <a href='http://sjp.pwn.pl/sjp/;2527372'>has
-its roots in Polish language and has onomatopeic meaning of scraping or
-scrubbing</a>. It is pronounced as <em>shoorubooru</em>.</p>
+<p>Yeokka &amp; Funzinnu booru(이하 역펀부루)는 <a href='https://www.twitch.tv/yeokka'>Yeokka</a>와 <a href='https://www.twitch.tv/funzinnu'>Funzinnu</a>와 관련된 짤을 공유하는 <a href='https://github.com/rr-/szurubooru'>Szurubooru</a> 기반 이미지 보드 사이트입니다.</p>
 
-<p class='section'><strong>Registration</strong></p>
+<p class='section'><strong>가입</strong></p>
 
-<p>The e-mail you enter during account creation is only used to retrieve your
-Gravatar and for password reminders. Only you can see it (well, except the
-database staff&hellip; we won&rsquo;t spam your mailbox anyway).</p>
+<p>계정 가입을 통해 입력한 이메일 주소는 Gavatar와 비밀번호 초기화를 위해서만 사용되며, 계정 소유자만이 볼 수 있습니다(관리자는 예외적으로 볼 수 있지만, 스팸 메일을 보내거나 하지는 않습니다).</p>
 
-<p>Oh, and you can delete your account at any time. Posts you uploaded will
-stay, unless some angry admin removes them.</p>
+<p>계정 소유자는 언제나 자신의 계정을 삭제할 수 있지만, 관리자가 빡쳐서 지우지 않는 한 업로드한 짤이나 댓글 등은 삭제되지 않습니다.</p>
