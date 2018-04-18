@@ -8,7 +8,12 @@
                             href='<%= ctx.canViewPosts ? ctx.getPostUrl(post.id, ctx.parameters) : '' %>'>
                         <%= ctx.makeThumbnail(post.thumbnailUrl) %>
                         <span class='type' data-type='<%- post.type %>'>
-                            <%- post.type %>
+                            <%- {
+                                'image': '이미지',
+                                'animation': '애니메이션',
+                                'video': '동영상',
+                                'flash': '플래시',
+                            }[post.type] %>
                         </span>
                         <% if (post.score || post.favoriteCount || post.commentCount) { %>
                             <span class='stats'>
