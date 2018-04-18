@@ -41,7 +41,7 @@ class UserView extends events.EventTarget {
             if (!this._ctx.canEditAnything) {
                 this._view = new EmptyView();
                 this._view.showError(
-                    'You don\'t have privileges to edit users.');
+                    '사용자를 수정할 수 있는 권한이 없습니다.');
             } else {
                 this._view = new UserEditView(ctx);
                 events.proxyEvent(this._view, this, 'submit');
@@ -50,7 +50,7 @@ class UserView extends events.EventTarget {
             if (!this._ctx.canListTokens) {
                 this._view = new EmptyView();
                 this._view.showError(
-                    'You don\'t have privileges to view user tokens.');
+                    '사용자의 토큰을 볼 수 있는 권한이 없습니다.');
             } else {
                 this._view = new UserTokensView(ctx);
                 events.proxyEvent(this._view, this, 'delete', 'delete-token');
@@ -61,7 +61,7 @@ class UserView extends events.EventTarget {
             if (!this._ctx.canDelete) {
                 this._view = new EmptyView();
                 this._view.showError(
-                    'You don\'t have privileges to delete users.');
+                    '사용자를 삭제할 수 있는 권한이 없습니다.');
             } else {
                 this._view = new UserDeleteView(ctx);
                 events.proxyEvent(this._view, this, 'submit', 'delete');

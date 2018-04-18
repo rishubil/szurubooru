@@ -12,12 +12,12 @@ class UserRegistrationController {
     constructor() {
         if (!api.hasPrivilege('users:create:self')) {
             this._view = new EmptyView();
-            this._view.showError('Registration is closed.');
+            this._view.showError('가입이 현재 불가능함.');
             return;
         }
 
         topNavigation.activate('register');
-        topNavigation.setTitle('Registration');
+        topNavigation.setTitle('가입');
         this._view = new RegistrationView();
         this._view.addEventListener('submit', e => this._evtRegister(e));
     }
@@ -40,10 +40,10 @@ class UserRegistrationController {
         }).then(() => {
             if (isLoggedIn) {
                 const ctx = router.show(uri.formatClientLink('users'));
-                ctx.controller.showSuccess('User added!');
+                ctx.controller.showSuccess('사용자 추가됨.');
             } else {
                 const ctx = router.show(uri.formatClientLink());
-                ctx.controller.showSuccess('Welcome aboard!');
+                ctx.controller.showSuccess('가입을 축하합니다!');
             }
         }, error => {
             this._view.showError(error.message);

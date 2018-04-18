@@ -15,12 +15,12 @@ class CommentsController {
         if (!api.hasPrivilege('comments:list')) {
             this._view = new EmptyView();
             this._view.showError(
-                'You don\'t have privileges to view comments.');
+                '댓글을 볼 수 있는 권한이 없습니다.');
             return;
         }
 
         topNavigation.activate('comments');
-        topNavigation.setTitle('Listing comments');
+        topNavigation.setTitle('댓글 목록');
 
         this._pageController = new PageController();
         this._pageController.run({

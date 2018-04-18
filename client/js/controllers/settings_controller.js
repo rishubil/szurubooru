@@ -7,7 +7,7 @@ const SettingsView = require('../views/settings_view.js');
 class SettingsController {
     constructor() {
         topNavigation.activate('settings');
-        topNavigation.setTitle('Browsing settings');
+        topNavigation.setTitle('브라우저 설정');
         this._view = new SettingsView({
             settings: settings.get(),
         });
@@ -17,7 +17,7 @@ class SettingsController {
     _evtSubmit(e) {
         this._view.clearMessages();
         settings.save(e.detail);
-        this._view.showSuccess('Settings saved.');
+        this._view.showSuccess('설정 저장됨.');
     }
 };
 

@@ -14,7 +14,7 @@ class TagController {
     constructor(ctx, section) {
         if (!api.hasPrivilege('tags:view')) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view tags.');
+            this._view.showError('태그를 볼 수 있는 권한이 없습니다.');
             return;
         }
 
@@ -25,7 +25,7 @@ class TagController {
             const [tagCategoriesResponse, tag] = responses;
 
             topNavigation.activate('tags');
-            topNavigation.setTitle('Tag #' + tag.names[0]);
+            topNavigation.setTitle('태그 #' + tag.names[0]);
 
             this._name = ctx.parameters.name;
             tag.addEventListener('change', e => this._evtSaved(e, section));
@@ -85,7 +85,7 @@ class TagController {
             e.detail.tag.description = e.detail.description;
         }
         e.detail.tag.save().then(() => {
-            this._view.showSuccess('Tag saved.');
+            this._view.showSuccess('태그 저장됨.');
             this._view.enableForm();
         }, error => {
             this._view.showError(error.message);
@@ -99,7 +99,7 @@ class TagController {
         e.detail.tag
             .merge(e.detail.targetTagName, e.detail.addAlias)
             .then(() => {
-                this._view.showSuccess('Tag merged.');
+                this._view.showSuccess('태그 병합됨.');
                 this._view.enableForm();
                 router.replace(
                     uri.formatClientLink(
@@ -117,7 +117,7 @@ class TagController {
         e.detail.tag.delete()
             .then(() => {
                 const ctx = router.show(uri.formatClientLink('tags'));
-                ctx.controller.showSuccess('Tag deleted.');
+                ctx.controller.showSuccess('태그 삭제됨.');
             }, error => {
                 this._view.showError(error.message);
                 this._view.enableForm();

@@ -20,12 +20,12 @@ class PostListController {
     constructor(ctx) {
         if (!api.hasPrivilege('posts:list')) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view posts.');
+            this._view.showError('짤을 볼 수 있는 권한이 없습니다.');
             return;
         }
 
         topNavigation.activate('posts');
-        topNavigation.setTitle('Listing posts');
+        topNavigation.setTitle('짤 목록');
 
         this._ctx = ctx;
         this._pageController = new PageController();

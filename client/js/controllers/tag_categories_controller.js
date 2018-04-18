@@ -12,12 +12,12 @@ class TagCategoriesController {
         if (!api.hasPrivilege('tagCategories:list')) {
             this._view = new EmptyView();
             this._view.showError(
-                'You don\'t have privileges to view tag categories.');
+                '태그 카테고리를 볼 수 있는 권한이 없습니다.');
             return;
         }
 
         topNavigation.activate('tags');
-        topNavigation.setTitle('Listing tags');
+        topNavigation.setTitle('태그 카테고리 목록');
         TagCategoryList.get().then(response => {
             this._tagCategories = response.results;
             this._view = new TagCategoriesView({
@@ -42,7 +42,7 @@ class TagCategoriesController {
             .then(() => {
                 tags.refreshCategoryColorMap();
                 this._view.enableForm();
-                this._view.showSuccess('Changes saved.');
+                this._view.showSuccess('변경 저장됨.');
             }, error => {
                 this._view.enableForm();
                 this._view.showError(error.message);

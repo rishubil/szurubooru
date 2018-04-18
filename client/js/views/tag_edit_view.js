@@ -69,14 +69,14 @@ class TagEditView extends events.EventTarget {
 
         if (!list.length) {
             this._namesFieldNode.setCustomValidity(
-                'Tags must have at least one name.');
+                '태그는 적어도 하나의 태그명이 있어야 합니다.');
             return;
         }
 
         for (let item of list) {
             if (!regex.test(item)) {
                 this._namesFieldNode.setCustomValidity(
-                    `Tag name "${item}" contains invalid symbols.`);
+                    `태그명 "${item}" 는 사용할 수 없는 기호를 포함하고 있습니다.`);
                 return;
             }
         }

@@ -8,12 +8,12 @@ class BasePostController {
     constructor(ctx) {
         if (!api.hasPrivilege('posts:view')) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view posts.');
+            this._view.showError('짤을 볼 수 있는 권한이 없습니다.');
             return;
         }
 
         topNavigation.activate('posts');
-        topNavigation.setTitle('Post #' + ctx.parameters.id.toString());
+        topNavigation.setTitle('짤 #' + ctx.parameters.id.toString());
     }
 }
 

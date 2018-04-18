@@ -215,7 +215,7 @@ class TagInputControl extends events.EventTarget {
             (e.originalEvent || e).clipboardData.getData('text/plain');
 
         if (pastedText.length > 2000) {
-            window.alert('Pasted text is too long.');
+            window.alert('붙여넣은 텍스트가 너무 깁니다.');
             return;
         }
         this._hideAutoComplete();

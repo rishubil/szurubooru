@@ -28,7 +28,7 @@ class TopNavigation extends events.EventTarget {
 
     get(key) {
         if (!this._keyToItem.has(key)) {
-            throw `An item with key ${key} does not exist.`;
+            throw `키 ${key} 에 해당하는 아이템이 존재하지 않습니다.`;
         }
         return this._keyToItem.get(key);
     }
@@ -36,7 +36,7 @@ class TopNavigation extends events.EventTarget {
     add(key, item) {
         item.key = key;
         if (this._keyToItem.has(key)) {
-            throw `An item with key ${key} was already added.`;
+            throw `키 ${key} 에 해당하는 아이템 이미 추가되어 있습니다.`;
         }
         this._keyToItem.set(key, item);
         this._items.push(item);

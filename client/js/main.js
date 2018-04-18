@@ -65,7 +65,7 @@ api.loginFromCookies().then(() => {
         } else {
             const ctx = router.start('/');
             ctx.controller.showError(
-                'An error happened while trying to log you in: ' +
+                '로그인 시도중 오류가 발생함: ' +
                     error.message);
         }
     });

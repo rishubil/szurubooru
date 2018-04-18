@@ -22,12 +22,12 @@ class TagListController {
     constructor(ctx) {
         if (!api.hasPrivilege('tags:list')) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view tags.');
+            this._view.showError('태그를 볼 수 있는 권한이 없습니다.');
             return;
         }
 
         topNavigation.activate('tags');
-        topNavigation.setTitle('Listing tags');
+        topNavigation.setTitle('태그 목록');
 
         this._ctx = ctx;
         this._pageController = new PageController();

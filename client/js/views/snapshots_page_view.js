@@ -68,7 +68,7 @@ function _makeItemModification(type, data) {
             _extend(lines, _formatBasicChange(diff.color, 'color'));
         }
         if (diff.default) {
-            _extend(lines, ['Made into default category']);
+            _extend(lines, ['기본 카테고리로 변경됨']);
         }
 
     } else if (type === 'tag') {
@@ -90,10 +90,10 @@ function _makeItemModification(type, data) {
 
     } else if (type === 'post') {
         if (diff.checksum) {
-            _extend(lines, ['Changed content']);
+            _extend(lines, ['컨텐츠 변경됨']);
         }
         if (diff.featured) {
-            _extend(lines, ['Featured on front page']);
+            _extend(lines, ['대문짤로 설정됨']);
         }
         if (diff.source) {
             _extend(lines, _formatBasicChange(diff.source, 'source'));
@@ -108,10 +108,10 @@ function _makeItemModification(type, data) {
             _extend(lines, _formatBasicChange(diff.relations, 'relations'));
         }
         if (diff.notes) {
-            _extend(lines, ['Changed notes']);
+            _extend(lines, ['메모 변경됨']);
         }
         if (diff.flags) {
-            _extend(lines, ['Changed flags']);
+            _extend(lines, ['플래그 변경됨']);
         }
     }
 

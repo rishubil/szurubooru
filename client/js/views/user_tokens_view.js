@@ -104,7 +104,7 @@ class UserTokenView extends events.EventTarget {
         const userToken = this._tokens[
             parseInt(e.target.getAttribute('data-token-id'))];
         const text = window.prompt(
-            'Please enter the new name:',
+            '새 토큰 메모를 입력해주세요.',
             userToken.note !== null ? userToken.note : undefined);
         if (!text) {
             return;

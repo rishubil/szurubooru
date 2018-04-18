@@ -186,7 +186,7 @@ class CommentControl extends events.EventTarget {
 
     _evtDeleteClick(e) {
         e.preventDefault();
-        if (!window.confirm('Are you sure you want to delete this comment?')) {
+        if (!window.confirm('정말로 이 댓글을 삭제하시겠습니까?')) {
             return;
         }
         this.dispatchEvent(new CustomEvent('delete', {

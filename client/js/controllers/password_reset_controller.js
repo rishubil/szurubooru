@@ -9,7 +9,7 @@ const PasswordResetView = require('../views/password_reset_view.js');
 class PasswordResetController {
     constructor() {
         topNavigation.activate('login');
-        topNavigation.setTitle('Password reminder');
+        topNavigation.setTitle('비밀번호 초기화');
 
         this._passwordResetView = new PasswordResetView();
         this._passwordResetView.addEventListener(
@@ -24,8 +24,8 @@ class PasswordResetController {
         api.get(uri.formatApiLink('password-reset', e.detail.userNameOrEmail))
             .then(() => {
                 this._passwordResetView.showSuccess(
-                    'E-mail has been sent. To finish the procedure, ' +
-                    'please click the link it contains.');
+                    '이메일이 전송되었습니다. 작업을 완료하기 위해 ' +
+                    '이메일의 링크를 클릭해주세요.');
             }, error => {
                 this._passwordResetView.showError(error.message);
                 this._passwordResetView.enableForm();
@@ -44,7 +44,7 @@ class PasswordResetFinishController {
                 return api.login(name, password, false);
             }).then(() => {
                 const ctx = router.show(uri.formatClientLink());
-                ctx.controller.showSuccess('New password: ' + password);
+                ctx.controller.showSuccess('새 비밀번호: ' + password);
             }, error => {
                 const ctx = router.show(uri.formatClientLink());
                 ctx.controller.showError(error.message);

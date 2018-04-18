@@ -43,11 +43,11 @@ class BulkEditor extends events.EventTarget {
     }
 
     _evtOpenLinkClick(e) {
-        throw new Error('Not implemented');
+        throw new Error('구현되지 않음');
     }
 
     _evtCloseLinkClick(e) {
-        throw new Error('Not implemented');
+        throw new Error('구현되지 않음');
     }
 }
 

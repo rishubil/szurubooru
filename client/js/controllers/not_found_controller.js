@@ -6,7 +6,7 @@ const NotFoundView = require('../views/not_found_view.js');
 class NotFoundController {
     constructor(path) {
         topNavigation.activate('');
-        topNavigation.setTitle('Not found');
+        topNavigation.setTitle('찾을 수 없음');
         this._notFoundView = new NotFoundView(path);
     }
 };

@@ -6,7 +6,7 @@ const HelpView = require('../views/help_view.js');
 class HelpController {
     constructor(section, subsection) {
         topNavigation.activate('help');
-        topNavigation.setTitle('Help');
+        topNavigation.setTitle('정보');
         this._helpView = new HelpView(section, subsection);
     }
 }

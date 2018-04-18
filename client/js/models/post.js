@@ -34,8 +34,8 @@ class Post extends events.EventTarget {
     get canvasWidth()        { return this._canvasWidth || 800; }
     get canvasHeight()       { return this._canvasHeight || 450; }
     get fileSize()           { return this._fileSize || 0; }
-    get newContent()         { throw 'Invalid operation'; }
-    get newThumbnail()       { throw 'Invalid operation'; }
+    get newContent()         { throw '잘못된 동작'; }
+    get newThumbnail()       { throw '잘못된 동작'; }
 
     get flags()              { return this._flags; }
     get tags()               { return this._tags; }
@@ -143,7 +143,7 @@ class Post extends events.EventTarget {
             if (error.response &&
                     error.response.name === 'PostAlreadyUploadedError') {
                 error.message =
-                    `Post already uploaded (@${error.response.otherPostId})`;
+                    `이미 업로드된 짤 (@${error.response.otherPostId})`;
             }
             return Promise.reject(error);
         });

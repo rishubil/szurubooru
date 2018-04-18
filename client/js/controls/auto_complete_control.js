@@ -101,11 +101,11 @@ class AutoCompleteControl {
 
     _install() {
         if (!this._sourceInputNode) {
-            throw new Error('Input element was not found');
+            throw new Error('Input 요소를 찾을 수 없습니다');
         }
         if (this._sourceInputNode.getAttribute('data-autocomplete')) {
             throw new Error(
-                'Autocompletion was already added for this element');
+                '자동완성이 이미 요소에 추가되었습니다');
         }
         this._sourceInputNode.setAttribute('data-autocomplete', true);
         this._sourceInputNode.setAttribute('autocomplete', 'off');

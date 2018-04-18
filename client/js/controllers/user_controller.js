@@ -18,7 +18,7 @@ class UserController {
         if (!api.hasPrivilege('users:view') &&
                 !api.isLoggedIn({name: userName})) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view users.');
+            this._view.showError('사용자를 볼 수 있는 권한이 없습니다.');
             return;
         }
 
@@ -173,7 +173,7 @@ class UserController {
                     false) :
                 Promise.resolve();
         }).then(() => {
-            this._view.showSuccess('Settings updated.');
+            this._view.showSuccess('설정 갱신됨.');
             this._view.enableForm();
         }, error => {
             this._view.showError(error.message);
@@ -193,10 +193,10 @@ class UserController {
                 }
                 if (api.hasPrivilege('users:list')) {
                     const ctx = router.show(uri.formatClientLink('users'));
-                    ctx.controller.showSuccess('Account deleted.');
+                    ctx.controller.showSuccess('사용자 삭제됨.');
                 } else {
                     const ctx = router.show(uri.formatClientLink());
-                    ctx.controller.showSuccess('Account deleted.');
+                    ctx.controller.showSuccess('사용자 삭제됨.');
                 }
             }, error => {
                 this._view.showError(error.message);
@@ -210,7 +210,7 @@ class UserController {
         UserToken.create(e.detail.user.name, e.detail.note, e.detail.expirationTime)
             .then(response => {
                 const ctx = router.show(uri.formatClientLink('user', e.detail.user.name, 'list-tokens'));
-                ctx.controller.showSuccess('Token ' + response.token + ' created.');
+                ctx.controller.showSuccess('토큰 ' + response.token + ' 생성됨.');
             }, error => {
                 this._view.showError(error.message);
                 this._view.enableForm();
@@ -226,7 +226,7 @@ class UserController {
             e.detail.userToken.delete(e.detail.user.name)
                 .then(() => {
                     const ctx = router.show(uri.formatClientLink('user', e.detail.user.name, 'list-tokens'));
-                    ctx.controller.showSuccess('Token ' + e.detail.userToken.token + ' deleted.');
+                    ctx.controller.showSuccess('토큰 ' + e.detail.userToken.token + ' 삭제됨.');
                 }, error => {
                     this._view.showError(error.message);
                     this._view.enableForm();
@@ -244,7 +244,7 @@ class UserController {
 
         e.detail.userToken.save(e.detail.user.name).then(response => {
             const ctx = router.show(uri.formatClientLink('user', e.detail.user.name, 'list-tokens'));
-            ctx.controller.showSuccess('Token ' + response.token + ' updated.');
+            ctx.controller.showSuccess('토큰 ' + response.token + ' 갱신됨.');
         }, error => {
             this._view.showError(error.message);
             this._view.enableForm();

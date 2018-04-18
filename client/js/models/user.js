@@ -24,8 +24,8 @@ class User extends events.EventTarget {
     get likedPostCount()     { return this._likedPostCount; }
     get dislikedPostCount()  { return this._dislikedPostCount; }
     get rankName()           { return api.rankNames.get(this.rank); }
-    get avatarContent()      { throw 'Invalid operation'; }
-    get password()           { throw 'Invalid operation'; }
+    get avatarContent()      { throw '잘못된 동작'; }
+    get password()           { throw '잘못된 동작'; }
 
     set name(value)          { this._name = value; }
     set rank(value)          { this._rank = value; }

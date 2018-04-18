@@ -38,7 +38,7 @@ class PostDetailView extends events.EventTarget {
             if (!this._ctx.canMerge) {
                 this._view = new EmptyView();
                 this._view.showError(
-                    'You don\'t have privileges to merge posts.');
+                    '짤을 병합할 수 있는 권한이 없습니다.');
             } else {
                 this._view = new PostMergeView(ctx);
                 events.proxyEvent(this._view, this, 'select');

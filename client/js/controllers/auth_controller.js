@@ -10,7 +10,7 @@ class LoginController {
     constructor() {
         api.forget();
         topNavigation.activate('login');
-        topNavigation.setTitle('Login');
+        topNavigation.setTitle('로그인');
 
         this._loginView = new LoginView();
         this._loginView.addEventListener('submit', e => this._evtLogin(e));
@@ -23,7 +23,7 @@ class LoginController {
         api.login(e.detail.name, e.detail.password, e.detail.remember)
             .then(() => {
                 const ctx = router.show(uri.formatClientLink());
-                ctx.controller.showSuccess('Logged in');
+                ctx.controller.showSuccess('로그인 됨');
             }, error => {
                 this._loginView.showError(error.message);
                 this._loginView.enableForm();
@@ -36,7 +36,7 @@ class LogoutController {
         api.forget();
         api.logout();
         const ctx = router.show(uri.formatClientLink());
-        ctx.controller.showSuccess('Logged out');
+        ctx.controller.showSuccess('로그아웃 됨');
     }
 }
 

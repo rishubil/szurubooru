@@ -12,7 +12,7 @@ class SnapshotsController {
     constructor(ctx) {
         if (!api.hasPrivilege('snapshots:list')) {
             this._view = new EmptyView();
-            this._view.showError('You don\'t have privileges to view history.');
+            this._view.showError('수정 목록을 볼 수 있는 권한이 없습니다.');
             return;
         }
 

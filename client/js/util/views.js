@@ -223,7 +223,7 @@ function makeTagLink(name, includeHash, includeCount, tag) {
 
 function makeUserLink(user) {
     let text = makeThumbnail(user ? user.avatarUrl : null);
-    text += user && user.name ? misc.escapeHtml(user.name) : 'Anonymous';
+    text += user && user.name ? misc.escapeHtml(user.name) : '익명';
     const link = user && api.hasPrivilege('users:view') ?
         makeElement(
             'a', {href: uri.formatClientLink('user', user.name)}, text) :
@@ -279,13 +279,13 @@ function replaceContent(target, source) {
     } else if (source instanceof Node) {
         target.appendChild(source);
     } else if (source !== null) {
-        throw `Invalid view source: ${source}`;
+        throw `잘못된 뷰 소스: ${source}`;
     }
 }
 
 function showMessage(target, message, className) {
     if (!message) {
-        message = 'Unknown message';
+        message = '알 수 없는 메세지';
     }
     const messagesHolderNode = target.querySelector('.messages');
     if (!messagesHolderNode) {
@@ -373,7 +373,7 @@ function htmlToDom(html) {
 
 function getTemplate(templatePath) {
     if (!(templatePath in templates)) {
-        throw `Missing template: ${templatePath}`;
+        throw `누락된 템플릿: ${templatePath}`;
     }
     const templateFactory = templates[templatePath];
     return ctx => {

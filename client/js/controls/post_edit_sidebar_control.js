@@ -46,23 +46,23 @@ class PostEditSidebarControl extends events.EventTarget {
 
         new ExpanderControl(
             'post-info',
-            'Basic info',
+            '기본 정보',
             this._hostNode.querySelectorAll('.safety, .relations, .flags'));
         this._tagsExpander = new ExpanderControl(
             'post-tags',
-            `Tags (${this._post.tags.length})`,
+            `태그 (${this._post.tags.length})`,
             this._hostNode.querySelectorAll('.tags'));
         this._notesExpander = new ExpanderControl(
             'post-notes',
-            'Notes',
+            '메모',
             this._hostNode.querySelectorAll('.notes'));
         new ExpanderControl(
             'post-content',
-            'Content',
+            '컨텐츠',
             this._hostNode.querySelectorAll('.post-content, .post-thumbnail'));
         new ExpanderControl(
             'post-management',
-            'Management',
+            '관리',
             this._hostNode.querySelectorAll('.management'));
 
         this._syncExpanderTitles();
@@ -81,7 +81,7 @@ class PostEditSidebarControl extends events.EventTarget {
                 this._contentInputNode, {
                     allowUrls: true,
                     lock: true,
-                    urlPlaceholder: '...or paste an URL here.'});
+                    urlPlaceholder: '...또는 URL을 여기에 붙여넣기'});
             this._contentFileDropper.addEventListener('fileadd', e => {
                 this._newPostContent = e.detail.files[0];
             });
@@ -185,8 +185,8 @@ class PostEditSidebarControl extends events.EventTarget {
     }
 
     _syncExpanderTitles() {
-        this._notesExpander.title = `Notes (${this._post.notes.length})`;
-        this._tagsExpander.title = `Tags (${this._post.tags.length})`;
+        this._notesExpander.title = `메모 (${this._post.notes.length})`;
+        this._tagsExpander.title = `태그 (${this._post.tags.length})`;
     }
 
     _evtPostContentChange(e) {
@@ -206,7 +206,7 @@ class PostEditSidebarControl extends events.EventTarget {
 
     _evtFeatureClick(e) {
         e.preventDefault();
-        if (confirm('Are you sure you want to feature this post?')) {
+        if (confirm('정말로 이 짤을 대문짤로 지정하시겠습니까?')) {
             this.dispatchEvent(new CustomEvent('feature', {
                 detail: {
                     post: this._post,
@@ -226,7 +226,7 @@ class PostEditSidebarControl extends events.EventTarget {
 
     _evtDeleteClick(e) {
         e.preventDefault();
-        if (confirm('Are you sure you want to delete this post?')) {
+        if (confirm('정말로 이 짤을 삭제하시겠습니까?')) {
             this.dispatchEvent(new CustomEvent('delete', {
                 detail: {
                     post: this._post,
@@ -288,14 +288,14 @@ class PostEditSidebarControl extends events.EventTarget {
         textarea.blur();
         document.body.removeChild(textarea);
         alert(success
-            ? 'Notes copied to clipboard.'
-            : 'Failed to copy the text to clipboard. Sorry.');
+            ? '메모가 클립보드로 복사됨.'
+            : '죄송합니다. 텍스트를 클립보드로 복사할 수 없습니다.');
     }
 
     _evtPasteNotesClick(e) {
         e.preventDefault();
         const text = window.prompt(
-            'Please enter the exported notes snapshot:');
+            '복사했던 메모 데이터를 입력해주세요.');
         if (!text) {
             return;
         }

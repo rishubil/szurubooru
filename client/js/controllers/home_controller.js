@@ -9,7 +9,7 @@ const HomeView = require('../views/home_view.js');
 class HomeController {
     constructor() {
         topNavigation.activate('home');
-        topNavigation.setTitle('Home');
+        topNavigation.setTitle('대문');
 
         this._homeView = new HomeView({
             name: config.name,

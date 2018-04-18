@@ -62,17 +62,17 @@ function formatRelativeTime(timeString) {
     const future = now < then;
 
     const descriptions = [
-        [60,                            'a few seconds', null],
-        [60 * 2,                        'a minute',      null],
-        [60 * 60,                       '% minutes',     60],
-        [60 * 60 * 2,                   'an hour',       null],
-        [60 * 60 * 24,                  '% hours',       60 * 60],
-        [60 * 60 * 24 * 2,              'a day',         null],
-        [60 * 60 * 24 * 30.42,          '% days',        60 * 60 * 24],
-        [60 * 60 * 24 * 30.42 * 2,      'a month',       null],
-        [60 * 60 * 24 * 30.42 * 12,     '% months',      60 * 60 * 24 * 30.42],
-        [60 * 60 * 24 * 30.42 * 12 * 2, 'a year',        null],
-        [8640000000000000 /*max*/, '% years', 60 * 60 * 24 * 30.42 * 12],
+        [60,                            '몇 초', null],
+        [60 * 2,                        '1분',      null],
+        [60 * 60,                       '%분',     60],
+        [60 * 60 * 2,                   '1시간',       null],
+        [60 * 60 * 24,                  '%시간',       60 * 60],
+        [60 * 60 * 24 * 2,              '1일',         null],
+        [60 * 60 * 24 * 30.42,          '%일',        60 * 60 * 24],
+        [60 * 60 * 24 * 30.42 * 2,      '1개월',       null],
+        [60 * 60 * 24 * 30.42 * 12,     '%개월',      60 * 60 * 24 * 30.42],
+        [60 * 60 * 24 * 30.42 * 12 * 2, '1년',        null],
+        [8640000000000000 /*max*/, '%년', 60 * 60 * 24 * 30.42 * 12],
     ];
 
     let text = null;
@@ -86,10 +86,10 @@ function formatRelativeTime(timeString) {
         }
     }
 
-    if (text === 'a day') {
-        return future ? 'tomorrow' : 'yesterday';
+    if (text === '1일') {
+        return future ? '내일' : '어제';
     }
-    return future ? 'in ' + text : text + ' ago';
+    return future ? text + ' 후' : text + ' 전';
 }
 
 function formatMarkdown(text) {
@@ -129,8 +129,8 @@ function unindent(callSite, ...args) {
 
 function enableExitConfirmation() {
     window.onbeforeunload = e => {
-        return 'Are you sure you want to leave? ' +
-            'Data you have entered may not be saved.';
+        return '정말로 이 페이지를 나가시겠습니까? ' +
+            '입력한 자료는 저장되지 않습니다.';
     };
 }
 

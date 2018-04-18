@@ -203,7 +203,7 @@ class EndlessPageView {
                     window.scrollY + pageNode.offsetHeight);
             }
         } else if (!response.results.length) {
-            this.showInfo('No data to show');
+            this.showInfo('보여줄만한 데이터가 없습니다.');
         }
 
         this._initialPageLoad = false;
