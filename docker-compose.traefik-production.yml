@@ -42,6 +42,23 @@ services:
       - default
     restart: unless-stopped
 
+  http-redirect:
+    image: geldim/https-redirect
+    restart: always
+    expose:
+      - "80"
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.backend=yfbooru-redirect"
+      - "traefik.protocol=http"
+      - "traefik.port=80"
+      - "traefik.frontend.entryPoints=http"
+      - "traefik.frontend.rule=HostRegexp:yfbooru.yeokka.la"
+      - "traefik.docker.network=traefik_proxy"
+      - "traefik.frontend.priority=10"
+
   frontend:
     build:
       context: .
@@ -55,7 +72,7 @@ services:
       - "traefik.backend=yfbooru"
       - "traefik.protocol=http"
       - "traefik.port=80"
-      - "traefik.frontend.entryPoints=http"
+      - "traefik.frontend.entryPoints=https"
       - "traefik.frontend.rule=Host:yfbooru.yeokka.la"
       - "traefik.docker.network=traefik_proxy"
       - "traefik.frontend.priority=1"
