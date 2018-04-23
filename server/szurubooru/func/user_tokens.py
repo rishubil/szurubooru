@@ -122,12 +122,12 @@ def update_user_token_expiration_time(
         expiration_time = expiration_time.astimezone(pytz.UTC)
         if expiration_time < datetime.utcnow().replace(tzinfo=pytz.UTC):
             raise InvalidExpirationError(
-                'Expiration cannot happen in the past')
+                '만료일은 과거일 수 없습니다.')
         user_token.expiration_time = expiration_time
         update_user_token_edit_time(user_token)
     except ValueError:
         raise InvalidExpirationError(
-            'Expiration is in an invalid format {}'.format(
+            '만요일의 형식이 잘못되었습니다: {}'.format(
                 expiration_time_str))
 
 
@@ -136,7 +136,7 @@ def update_user_token_note(user_token: model.UserToken, note: str) -> None:
     note = note.strip() if note is not None else ''
     note = None if len(note) == 0 else note
     if util.value_exceeds_column_size(note, model.UserToken.note):
-        raise InvalidNoteError('Note is too long.')
+        raise InvalidNoteError('메모가 너무 깁니다.')
     user_token.note = note
     update_user_token_edit_time(user_token)
 

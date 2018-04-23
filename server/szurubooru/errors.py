@@ -4,7 +4,7 @@ from typing import Dict
 class BaseError(RuntimeError):
     def __init__(
             self,
-            message: str = 'Unknown error',
+            message: str = '알 수 없는 오류',
             extra_fields: Dict[str, str] = None) -> None:
         super().__init__(message)
         self.extra_fields = extra_fields

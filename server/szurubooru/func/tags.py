@@ -38,10 +38,10 @@ class InvalidTagDescriptionError(errors.ValidationError):
 
 def _verify_name_validity(name: str) -> None:
     if util.value_exceeds_column_size(name, model.TagName.name):
-        raise InvalidTagNameError('Name is too long.')
+        raise InvalidTagNameError('이름이 너무 깁니다.')
     name_regex = config.config['tag_name_regex']
     if not re.match(name_regex, name):
-        raise InvalidTagNameError('Name must satisfy regex %r.' % name_regex)
+        raise InvalidTagNameError('이름은 다음 정규식을 만족해야 합니다: %r' % name_regex)
 
 
 def _get_names(tag: model.Tag) -> List[str]:
@@ -148,7 +148,7 @@ def try_get_tag_by_name(name: str) -> Optional[model.Tag]:
 def get_tag_by_name(name: str) -> model.Tag:
     tag = try_get_tag_by_name(name)
     if not tag:
-        raise TagNotFoundError('Tag %r not found.' % name)
+        raise TagNotFoundError('태그 %r 을(를) 찾을 수 없습니다.' % name)
     return tag
 
 
@@ -224,7 +224,7 @@ def merge_tags(source_tag: model.Tag, target_tag: model.Tag) -> None:
     assert source_tag
     assert target_tag
     if source_tag.tag_id == target_tag.tag_id:
-        raise InvalidTagRelationError('Cannot merge tag with itself.')
+        raise InvalidTagRelationError('태그는 자기 자신과 병합할 수 없습니다.')
 
     def merge_posts(source_tag_id: int, target_tag_id: int) -> None:
         alias1 = model.PostTag
@@ -303,7 +303,7 @@ def update_tag_names(tag: model.Tag, names: List[str]) -> None:
     assert tag
     names = util.icase_unique([name for name in names if name])
     if not len(names):
-        raise InvalidTagNameError('At least one name must be specified.')
+        raise InvalidTagNameError('최소 하나의 이름은 지정해야 합니다.')
     for name in names:
         _verify_name_validity(name)
 
@@ -316,7 +316,7 @@ def update_tag_names(tag: model.Tag, names: List[str]) -> None:
     existing_tags = db.session.query(model.TagName).filter(expr).all()
     if len(existing_tags):
         raise TagAlreadyExistsError(
-            'One of names is already used by another tag.')
+            '이름 중 하나가 다른 태그에서 이미 사용중입니다.')
 
     # remove unwanted items
     for tag_name in tag.names[:]:
@@ -338,7 +338,7 @@ def update_tag_names(tag: model.Tag, names: List[str]) -> None:
 def update_tag_implications(tag: model.Tag, relations: List[str]) -> None:
     assert tag
     if _check_name_intersection(_get_names(tag), relations, False):
-        raise InvalidTagRelationError('Tag cannot imply itself.')
+        raise InvalidTagRelationError('태그는 자기 자신을 포함 태그로 지정할 수 없습니다.')
     tag.implications = get_tags_by_names(relations)
 
 
@@ -346,12 +346,12 @@ def update_tag_implications(tag: model.Tag, relations: List[str]) -> None:
 def update_tag_suggestions(tag: model.Tag, relations: List[str]) -> None:
     assert tag
     if _check_name_intersection(_get_names(tag), relations, False):
-        raise InvalidTagRelationError('Tag cannot suggest itself.')
+        raise InvalidTagRelationError('태그는 자기 자신을 제안 태그로 지정할 수 없습니다.')
     tag.suggestions = get_tags_by_names(relations)
 
 
 def update_tag_description(tag: model.Tag, description: str) -> None:
     assert tag
     if util.value_exceeds_column_size(description, model.Tag.description):
-        raise InvalidTagDescriptionError('Description is too long.')
+        raise InvalidTagDescriptionError('설명이 너무 깁니다.')
     tag.description = description or None

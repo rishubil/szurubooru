@@ -32,7 +32,7 @@ def _verify_name_validity(name: str) -> None:
     name_regex = config.config['tag_category_name_regex']
     if not re.match(name_regex, name):
         raise InvalidTagCategoryNameError(
-            'Name must satisfy regex %r.' % name_regex)
+            '이름은 다음 정규식을 만족해야 합니다: %r' % name_regex)
 
 
 class TagCategorySerializer(serialization.BaseSerializer):
@@ -84,7 +84,7 @@ def create_category(name: str, color: str) -> model.TagCategory:
 def update_category_name(category: model.TagCategory, name: str) -> None:
     assert category
     if not name:
-        raise InvalidTagCategoryNameError('Name cannot be empty.')
+        raise InvalidTagCategoryNameError('이름은 빈 값일 수 없습니다.')
     expr = sa.func.lower(model.TagCategory.name) == name.lower()
     if category.tag_category_id:
         expr = expr & (
@@ -93,9 +93,9 @@ def update_category_name(category: model.TagCategory, name: str) -> None:
         db.session.query(model.TagCategory).filter(expr).count() > 0)
     if already_exists:
         raise TagCategoryAlreadyExistsError(
-            'A category with this name already exists.')
+            '동일한 이름의 카테고리자 존재합니다.')
     if util.value_exceeds_column_size(name, model.TagCategory.name):
-        raise InvalidTagCategoryNameError('Name is too long.')
+        raise InvalidTagCategoryNameError('이름이 너무 깁니다.')
     _verify_name_validity(name)
     category.name = name
     cache.remove(DEFAULT_CATEGORY_NAME_CACHE_KEY)
@@ -104,11 +104,11 @@ def update_category_name(category: model.TagCategory, name: str) -> None:
 def update_category_color(category: model.TagCategory, color: str) -> None:
     assert category
     if not color:
-        raise InvalidTagCategoryColorError('Color cannot be empty.')
+        raise InvalidTagCategoryColorError('색상은 빈 값일 수 없습니다.')
     if not re.match(r'^#?[0-9A-Za-z]+$', color):
-        raise InvalidTagCategoryColorError('Invalid color.')
+        raise InvalidTagCategoryColorError('잘못된 색상.')
     if util.value_exceeds_column_size(color, model.TagCategory.color):
-        raise InvalidTagCategoryColorError('Color is too long.')
+        raise InvalidTagCategoryColorError('색상이 너무 깁니다.')
     category.color = color
 
 
@@ -126,7 +126,7 @@ def try_get_category_by_name(
 def get_category_by_name(name: str, lock: bool = False) -> model.TagCategory:
     category = try_get_category_by_name(name, lock)
     if not category:
-        raise TagCategoryNotFoundError('Tag category %r not found.' % name)
+        raise TagCategoryNotFoundError('태크 카테고리 %r 을(를) 찾을 수 없습니다.' % name)
     return category
 
 
@@ -163,7 +163,7 @@ def try_get_default_category(
 def get_default_category(lock: bool = False) -> model.TagCategory:
     category = try_get_default_category(lock)
     if not category:
-        raise TagCategoryNotFoundError('No tag category created yet.')
+        raise TagCategoryNotFoundError('아무 카테고리도 없습니다.')
     return category
 
 
@@ -190,9 +190,9 @@ def set_default_category(category: model.TagCategory) -> None:
 def delete_category(category: model.TagCategory) -> None:
     assert category
     if len(get_all_category_names()) == 1:
-        raise TagCategoryIsInUseError('Cannot delete the last category.')
+        raise TagCategoryIsInUseError('마지막 카테고리는 삭제할 수 없습니다.')
     if (category.tag_count or 0) > 0:
         raise TagCategoryIsInUseError(
-            'Tag category has some usages and cannot be deleted. ' +
-            'Please remove this category from relevant tags first..')
+            '태그 카테고리가 사용중이므로 삭제할 수 없습니다. ' +
+            '먼저 태그 카테고리를 사용중인 태그에서 제거해주세요.')
     db.session.delete(category)

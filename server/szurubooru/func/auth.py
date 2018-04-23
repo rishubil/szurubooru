@@ -110,7 +110,7 @@ def has_privilege(user: model.User, privilege_name: str) -> bool:
 def verify_privilege(user: model.User, privilege_name: str) -> None:
     assert user
     if not has_privilege(user, privilege_name):
-        raise errors.AuthError('Insufficient privileges to do this.')
+        raise errors.AuthError('이 작업을 수행할 권한이 없습니다.')
 
 
 def generate_authentication_token(user: model.User) -> str:

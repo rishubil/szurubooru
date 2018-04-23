@@ -9,8 +9,8 @@ def verify_version(
     expected_version = entity.version
     if actual_version != expected_version:
         raise errors.IntegrityError(
-            'Someone else modified this in the meantime. ' +
-            'Please try again.')
+            '다른 누군가 이미 수정하고 있습니다. ' +
+            '다시 시도해 보세요.')
 
 
 def bump_version(entity: model.Base) -> None:

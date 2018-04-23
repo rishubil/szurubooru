@@ -25,7 +25,7 @@ class PostAlreadyFeaturedError(errors.ValidationError):
 class PostAlreadyUploadedError(errors.ValidationError):
     def __init__(self, other_post: model.Post) -> None:
         super().__init__(
-            'Post already uploaded (%d)' % other_post.post_id,
+            '짤이 이미 업로드됨. (%d)' % other_post.post_id,
             {
                 'otherPostUrl': get_post_content_url(other_post),
                 'otherPostId': other_post.post_id,
@@ -330,7 +330,7 @@ def try_get_post_by_id(post_id: int) -> Optional[model.Post]:
 def get_post_by_id(post_id: int) -> model.Post:
     post = try_get_post_by_id(post_id)
     if not post:
-        raise PostNotFoundError('Post %r not found.' % post_id)
+        raise PostNotFoundError('짤 %r 을(를) 찾을 수 없습니다.' % post_id)
     return post
 
 
@@ -372,14 +372,14 @@ def update_post_safety(post: model.Post, safety: str) -> None:
     safety = util.flip(SAFETY_MAP).get(safety, None)
     if not safety:
         raise InvalidPostSafetyError(
-            'Safety can be either of %r.' % list(SAFETY_MAP.values()))
+            '위험도는 다음중 하나여야 합니다: %r' % list(SAFETY_MAP.values()))
     post.safety = safety
 
 
 def update_post_source(post: model.Post, source: Optional[str]) -> None:
     assert post
     if util.value_exceeds_column_size(source, model.Post.source):
-        raise InvalidPostSourceError('Source is too long.')
+        raise InvalidPostSourceError('소스가 너무 깁니다.')
     post.source = source or None
 
 
@@ -476,7 +476,7 @@ def generate_alternate_formats(post: model.Post, content: bytes) \
 def update_post_content(post: model.Post, content: Optional[bytes]) -> None:
     assert post
     if not content:
-        raise InvalidPostContentError('Post content missing.')
+        raise InvalidPostContentError('짤 컨텐츠가 없습니다.')
     post.mime_type = mime.get_mime_type(content)
     if mime.is_flash(post.mime_type):
         post.type = model.Post.TYPE_FLASH
@@ -489,7 +489,7 @@ def update_post_content(post: model.Post, content: Optional[bytes]) -> None:
         post.type = model.Post.TYPE_VIDEO
     else:
         raise InvalidPostContentError(
-            'Unhandled file type: %r' % post.mime_type)
+            '처리되지 않은 파일 타입: %r' % post.mime_type)
 
     post.checksum = util.get_sha1(content)
     other_post = (
@@ -555,7 +555,7 @@ def update_post_relations(post: model.Post, new_post_ids: List[int]) -> None:
         new_post_ids = [int(id) for id in new_post_ids]
     except ValueError:
         raise InvalidPostRelationError(
-            'A relation must be numeric post ID.')
+            '관련 짤은 반드시 숫자 ID 여야 합니다.')
     old_posts = post.relations
     old_post_ids = [int(p.post_id) for p in old_posts]
     if new_post_ids:
@@ -567,9 +567,9 @@ def update_post_relations(post: model.Post, new_post_ids: List[int]) -> None:
     else:
         new_posts = []
     if len(new_posts) != len(new_post_ids):
-        raise InvalidPostRelationError('One of relations does not exist.')
+        raise InvalidPostRelationError('존재하지 않는 관련 짤이 있습니다.')
     if post.post_id in new_post_ids:
-        raise InvalidPostRelationError('Post cannot relate to itself.')
+        raise InvalidPostRelationError('자기 자신을 관련 짤로 지정할 수 없습니다.')
 
     relations_to_del = [p for p in old_posts if p.post_id not in new_post_ids]
     relations_to_add = [p for p in new_posts if p.post_id not in old_post_ids]
@@ -587,33 +587,33 @@ def update_post_notes(post: model.Post, notes: Any) -> None:
     for note in notes:
         for field in ('polygon', 'text'):
             if field not in note:
-                raise InvalidPostNoteError('Note is missing %r field.' % field)
+                raise InvalidPostNoteError('메모의 %r 필드가 누락되었습니다.' % field)
         if not note['text']:
-            raise InvalidPostNoteError('A note\'s text cannot be empty.')
+            raise InvalidPostNoteError('메모의 텍스트가 반드시 필요합니다.')
         if not isinstance(note['polygon'], (list, tuple)):
             raise InvalidPostNoteError(
-                'A note\'s polygon must be a list of points.')
+                '메모의 폴리곤은 점의 리스트여야 합니다.')
         if len(note['polygon']) < 3:
             raise InvalidPostNoteError(
-                'A note\'s polygon must have at least 3 points.')
+                '메모의 폴리곤은 최소 3개의 점이 포함되어야 합니다.')
         for point in note['polygon']:
             if not isinstance(point, (list, tuple)):
                 raise InvalidPostNoteError(
-                    'A note\'s polygon point must be a list of length 2.')
+                    '메모의 폴리곤 점은 길이 2인 리스트여야 합니다.')
             if len(point) != 2:
                 raise InvalidPostNoteError(
-                    'A point in note\'s polygon must have two coordinates.')
+                    '메모의 폴리곤 점은 두 좌표축을 포함해야 합니다.')
             try:
                 pos_x = float(point[0])
                 pos_y = float(point[1])
                 if not 0 <= pos_x <= 1 or not 0 <= pos_y <= 1:
                     raise InvalidPostNoteError(
-                        'All points must fit in the image (0..1 range).')
+                        '메모의 모든 폴리곤 점은 이미지 내부에 존재해야 합니다 (0 ~ 1 범위).')
             except ValueError:
                 raise InvalidPostNoteError(
-                    'A point in note\'s polygon must be numeric.')
+                    '메모의 폴리곤 점은 숫자여야 합니다.')
         if util.value_exceeds_column_size(note['text'], model.PostNote.text):
-            raise InvalidPostNoteError('Note text is too long.')
+            raise InvalidPostNoteError('메모 텍스트가 너무 깁니다.')
         post.notes.append(
             model.PostNote(polygon=note['polygon'], text=str(note['text'])))
 
@@ -625,7 +625,7 @@ def update_post_flags(post: model.Post, flags: List[str]) -> None:
         flag = util.flip(FLAG_MAP).get(flag, None)
         if not flag:
             raise InvalidPostFlagError(
-                'Flag must be one of %r.' % list(FLAG_MAP.values()))
+                '플래그는 다음중 하나여야 합니다: %r' % list(FLAG_MAP.values()))
         target_flags.append(flag)
     post.flags = target_flags
 
@@ -651,7 +651,7 @@ def merge_posts(
     assert source_post
     assert target_post
     if source_post.post_id == target_post.post_id:
-        raise InvalidPostRelationError('Cannot merge post with itself.')
+        raise InvalidPostRelationError('짤은 자기 자신과 병합할 수 없습니다.')
 
     def merge_tables(
             table: model.Base,

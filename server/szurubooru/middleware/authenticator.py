@@ -9,7 +9,7 @@ def _authenticate_basic_auth(username: str, password: str) -> model.User:
     ''' Try to authenticate user. Throw AuthError for invalid users. '''
     user = users.get_user_by_name(username)
     if not auth.is_valid_password(user, password):
-        raise errors.AuthError('Invalid password.')
+        raise errors.AuthError('잘못된 비밀번호입니다.')
     return user
 
 
@@ -19,7 +19,7 @@ def _authenticate_token(
     user = users.get_user_by_name(username)
     user_token = user_tokens.get_by_user_and_token(user, token)
     if not auth.is_valid_token(user_token):
-        raise errors.AuthError('Invalid token.')
+        raise errors.AuthError('잘못된 토큰입니다.')
     return user, user_token
 
 
@@ -42,11 +42,11 @@ def _get_user(ctx: rest.Context, bump_login: bool) -> Optional[model.User]:
         else:
             raise HttpBadRequest(
                 'ValidationError',
-                'Only basic or token HTTP authentication is supported.')
+                '기본 및 토큰 HTTP 인증만을 지원합니다.')
     except ValueError as err:
         msg = (
-            'Authorization header values are not properly formed. '
-            'Supplied header {0}. Got error: {1}')
+            '인증 헤더 값이 적절한 형식이 아닙니다. '
+            '전달된 헤더 {0}. 오류: {1}')
         raise HttpBadRequest(
             'ValidationError',
             msg.format(ctx.get_header('Authorization'), str(err)))

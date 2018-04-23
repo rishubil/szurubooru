@@ -6,11 +6,11 @@ from email.header import Header
 from email.utils import formataddr
 
 
-MAIL_SUBJECT = 'Password reset for {name}'
+MAIL_SUBJECT = '[{name}] 비밀번호 재설정'
 MAIL_BODY = (
-    'You (or someone else) requested to reset your password on {name}.\n'
-    'If you wish to proceed, click this link: {url}\n'
-    'Otherwise, please ignore this email.')
+    '{name}에서 당신의 계정 비밀번호 재설정이 요청되었습니다.\n'
+    '비밀번호 재설정을 위해 다음 링크를 클릭하세요. {url}\n'
+    '만약 비밀번호 재설정을 요청하지 않으셨다면, 이 이메일을 무시해주세요.')
 
 
 @rest.routes.get('/password-reset/(?P<user_name>[^/]+)/?')
@@ -20,7 +20,7 @@ def start_password_reset(
     user = users.get_user_by_name_or_email(user_name)
     if not user.email:
         raise errors.ValidationError(
-            'User %r hasn\'t supplied email. Cannot reset password.' % (
+            '사용자 %r님은 이메일 주소를 등록하지 않았습니다. 비밀번호를 재설정할 수 없습니다.' % (
                 user_name))
     token = auth.generate_authentication_token(user)
     url = '%s/password-reset/%s:%s' % (

@@ -1,3 +1,4 @@
+import logging
 import urllib.parse
 import cgi
 import json
@@ -14,7 +15,7 @@ def _json_serializer(obj: Any) -> str:
     if isinstance(obj, datetime):
         serial = obj.isoformat('T') + 'Z'
         return serial
-    raise TypeError('Type not serializable')
+    raise TypeError('직렬화 할 수 없는 타입입니다.')
 
 
 def _dump_json(obj: Any) -> str:
@@ -43,7 +44,7 @@ def _create_context(env: Dict[str, Any]) -> context.Context:
         form = cgi.FieldStorage(fp=env['wsgi.input'], environ=env)
         if not form.list:
             raise errors.HttpBadRequest(
-                'ValidationError', 'No files attached.')
+                'ValidationError', '파일이 첨부되지 않았습니다.')
         body = form.getvalue('metadata')
         for key in form:
             files[key] = form.getvalue(key)
@@ -60,8 +61,8 @@ def _create_context(env: Dict[str, Any]) -> context.Context:
         except (ValueError, UnicodeDecodeError):
             raise errors.HttpBadRequest(
                 'ValidationError',
-                'Could not decode the request body. The JSON '
-                'was incorrect or was not encoded as UTF-8.')
+                '요청 body를 디코드할 수 없습니다. '
+                'JSON이 잘못되었거나 UTF-8로 인코딩되지 않았습니다.')
 
     return context.Context(method, path, headers, params, files)
 
@@ -74,7 +75,7 @@ def application(
         if 'application/json' not in ctx.get_header('Accept'):
             raise errors.HttpNotAcceptable(
                 'ValidationError',
-                'This API only supports JSON responses.')
+                '이 API는 JSON 응답만 지원합니다.')
 
         for url, allowed_methods in routes.routes.items():
             match = re.fullmatch(url, ctx.url)
@@ -82,13 +83,13 @@ def application(
                 if ctx.method not in allowed_methods:
                     raise errors.HttpMethodNotAllowed(
                         'ValidationError',
-                        'Allowed methods: %r' % allowed_methods)
+                        '허용된 메서드: %r' % allowed_methods)
                 handler = allowed_methods[ctx.method]
                 break
         else:
             raise errors.HttpNotFound(
                 'ValidationError',
-                'Requested path ' + ctx.url + ' was not found.')
+                '요청 경로 ' + ctx.url + ' 을(를) 찾을 수 없습니다.')
 
         try:
             ctx.session = db.session()

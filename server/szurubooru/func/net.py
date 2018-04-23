@@ -13,4 +13,4 @@ def download(url: str) -> bytes:
         with urllib.request.urlopen(request) as handle:
             return handle.read()
     except Exception as ex:
-        raise errors.ProcessingError('Error downloading %s (%s)' % (url, ex))
+        raise errors.ProcessingError('%s 다운로드 중 오류 (%s)' % (url, ex))

@@ -25,43 +25,43 @@ def _map_error(
 
 
 def _on_auth_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpForbidden, 'Authentication error')
+    raise _map_error(ex, rest.errors.HttpForbidden, '인증 오류')
 
 
 def _on_validation_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpBadRequest, 'Validation error')
+    raise _map_error(ex, rest.errors.HttpBadRequest, '유효성 오류')
 
 
 def _on_search_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpBadRequest, 'Search error')
+    raise _map_error(ex, rest.errors.HttpBadRequest, '검색 오류')
 
 
 def _on_integrity_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpConflict, 'Integrity violation')
+    raise _map_error(ex, rest.errors.HttpConflict, '무결성 위반')
 
 
 def _on_not_found_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpNotFound, 'Not found')
+    raise _map_error(ex, rest.errors.HttpNotFound, '찾을 수 없음')
 
 
 def _on_processing_error(ex: Exception) -> None:
-    raise _map_error(ex, rest.errors.HttpBadRequest, 'Processing error')
+    raise _map_error(ex, rest.errors.HttpBadRequest, '처리 오류')
 
 
 def _on_third_party_error(ex: Exception) -> None:
     raise _map_error(
         ex,
         rest.errors.HttpInternalServerError,
-        'Server configuration error')
+        '서버 설정 오류')
 
 
 def _on_stale_data_error(_ex: Exception) -> None:
     raise rest.errors.HttpConflict(
         name='IntegrityError',
-        title='Integrity violation',
+        title='무결성 위반',
         description=(
-            'Someone else modified this in the meantime. '
-            'Please try again.'))
+            '다른 누군가 이미 수정하고 있습니다. '
+            '다시 시도해 보세요.'))
 
 
 def validate_config() -> None:
@@ -73,23 +73,23 @@ def validate_config() -> None:
     for privilege, rank in config.config['privileges'].items():
         if rank not in RANK_MAP.values():
             raise errors.ConfigError(
-                'Rank %r for privilege %r is missing' % (rank, privilege))
+                '권한 %r 의 등급 %r 이(가) 누락되었습니다' % (privilege, rank))
     if config.config['default_rank'] not in RANK_MAP.values():
         raise errors.ConfigError(
-            'Default rank %r is not on the list of known ranks' % (
+            '기본 등급 %r 은(는) 알려진 등급 리스트에 없습니다' % (
                 config.config['default_rank']))
 
     for key in ['base_url', 'api_url', 'data_url', 'data_dir']:
         if not config.config[key]:
             raise errors.ConfigError(
-                'Service is not configured: %r is missing' % key)
+                '서비스가 설정되지 않았습니다: %r 이(가) 누락됨' % key)
 
     if not os.path.isabs(config.config['data_dir']):
         raise errors.ConfigError(
-            'data_dir must be an absolute path')
+            'data_dir 는 절대 경로여야 합니다')
 
     if not config.config['database']:
-        raise errors.ConfigError('Database is not configured')
+        raise errors.ConfigError('데이터베이스가 설정되지 않았습니다')
 
 
 def purge_old_uploads() -> None:

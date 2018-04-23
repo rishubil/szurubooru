@@ -21,12 +21,12 @@ def unescape(text: str, make_wildcards_special: bool = False) -> str:
                 i += 1
             except IndexError:
                 raise errors.SearchError(
-                    'Unterminated escape sequence (did you forget to escape '
-                    'the ending backslash?)')
+                    '끝나지 않은 이스케이프 시퀀스 '
+                    '(마지막 백슬래시를 잊었나요?)')
             if char not in '*\\:-.,':
                 raise errors.SearchError(
-                    'Unknown escape sequence (did you forget to escape '
-                    'the backslash?)')
+                    '끝나지 않은 이스케이프 시퀀스 '
+                    '(백슬래시를 잊었나요?)')
         elif text[i] == '*' and make_wildcards_special:
             char = WILDCARD
         else:
@@ -50,7 +50,7 @@ def enum_transformer(available_values: Dict[str, Any], value: str) -> str:
         return available_values[unescape(value.lower())]
     except KeyError:
         raise errors.SearchError(
-            'Invalid value: %r. Possible values: %r.' % (
+            '잘못된 값: %r. 가능한 값: %r.' % (
                 value, list(sorted(available_values.keys()))))
 
 
@@ -89,7 +89,7 @@ def apply_num_criterion_to_column(
             assert False
     except ValueError:
         raise errors.SearchError(
-            'Criterion value %r must be a number.' % (criterion,))
+            '기준 값 %r 은(는) 숫자여야 합니다.' % (criterion,))
     return expr
 
 
@@ -120,8 +120,8 @@ def apply_str_criterion_to_column(
             expr = expr | column.ilike(transformer(value))
     elif isinstance(criterion, criteria.RangedCriterion):
         raise errors.SearchError(
-            'Ranged criterion is invalid in this context. '
-            'Did you forget to escape the dots?')
+            '범위가 지정된 기준은 이 컨텍스트에서 유효하지 않습니다. '
+            '점들을 이스케이프하는 것을 잊었나요?')
     else:
         assert False
     return expr

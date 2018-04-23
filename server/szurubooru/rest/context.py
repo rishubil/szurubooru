@@ -57,12 +57,12 @@ class Context:
                 return ret
             elif default is not MISSING:
                 raise errors.MissingOrExpiredRequiredFileError(
-                    'Required file %r is missing or has expired.' % name)
+                    '필수 파일 %r 이(가) 누락되었거나 만료되었습니다.' % name)
 
         if default is not MISSING:
             return cast(bytes, default)
         raise errors.MissingRequiredFileError(
-            'Required file %r is missing.' % name)
+            '필수 파일 %r 이(가) 누락되었습니다.' % name)
 
     def has_param(self, name: str) -> bool:
         return name in self._params
@@ -75,7 +75,7 @@ class Context:
             if default is not MISSING:
                 return cast(List[Any], default)
             raise errors.MissingRequiredParameterError(
-                'Required parameter %r is missing.' % name)
+                '필수 파라미터 %r 이(가) 누락되었습니다.' % name)
         value = self._params[name]
         if type(value) is str:
             if ',' in value:
@@ -84,7 +84,7 @@ class Context:
         if type(value) is list:
             return value
         raise errors.InvalidParameterError(
-            'Parameter %r must be a list.' % name)
+            '파라미터 %r 은(는) 리스트여야 합니다.' % name)
 
     def get_param_as_int_list(
             self,
@@ -94,7 +94,7 @@ class Context:
         for item in ret:
             if type(item) is not int:
                 raise errors.InvalidParameterError(
-                    'Parameter %r must be a list of integer values.' % name)
+                    '파라미터 %r 은(는) 정수 리스트여야 합니다.' % name)
         return ret
 
     def get_param_as_string_list(
@@ -105,7 +105,7 @@ class Context:
         for item in ret:
             if type(item) is not str:
                 raise errors.InvalidParameterError(
-                    'Parameter %r must be a list of string values.' % name)
+                    '파라미터 %r 은(는) 문자열 리스트여야 합니다.' % name)
         return ret
 
     def get_param_as_string(
@@ -116,7 +116,7 @@ class Context:
             if default is not MISSING:
                 return cast(str, default)
             raise errors.MissingRequiredParameterError(
-                'Required parameter %r is missing.' % name)
+                '필수 파라미터 %r 이(가) 누락되었습니다.' % name)
         value = self._params[name]
         try:
             if value is None:
@@ -130,7 +130,7 @@ class Context:
         except TypeError:
             pass
         raise errors.InvalidParameterError(
-            'Parameter %r must be a string value.' % name)
+            '파라미터 %r 은(는) 문자열이여야 합니다.' % name)
 
     def get_param_as_int(
             self,
@@ -142,21 +142,21 @@ class Context:
             if default is not MISSING:
                 return cast(int, default)
             raise errors.MissingRequiredParameterError(
-                'Required parameter %r is missing.' % name)
+                '필수 파라미터 %r 이(가) 누락되었습니다.' % name)
         value = self._params[name]
         try:
             value = int(value)
             if min is not None and value < min:
                 raise errors.InvalidParameterError(
-                    'Parameter %r must be at least %r.' % (name, min))
+                    '파라미터 %r 은(는) 최소 %r 이어야 합니다.' % (name, min))
             if max is not None and value > max:
                 raise errors.InvalidParameterError(
-                    'Parameter %r may not exceed %r.' % (name, max))
+                    '파라미터 %r 은(는) %r 초과할 수 없습니다.' % (name, max))
             return value
         except (ValueError, TypeError):
             pass
         raise errors.InvalidParameterError(
-            'Parameter %r must be an integer value.' % name)
+            '파라미터 %r 은(는) 정수여야 합니다.' % name)
 
     def get_param_as_bool(
             self,
@@ -166,7 +166,7 @@ class Context:
             if default is not MISSING:
                 return cast(bool, default)
             raise errors.MissingRequiredParameterError(
-                'Required parameter %r is missing.' % name)
+                '필수 파라미터 %r 이(가) 누락되었습니다.' % name)
         value = self._params[name]
         try:
             value = str(value).lower()
@@ -177,4 +177,4 @@ class Context:
         if value in ['0', 'n', 'no', 'nope', 'f', 'false']:
             return False
         raise errors.InvalidParameterError(
-            'Parameter %r must be a boolean value.' % name)
+            '파라미터 %r 은(는) 불리언 값이어야 합니다.' % name)

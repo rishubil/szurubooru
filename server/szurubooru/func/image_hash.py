@@ -242,11 +242,11 @@ def _safety_blanket(default_param_factory: Callable[[], Any]) -> Callable:
             except elasticsearch.exceptions.ElasticsearchException as ex:
                 logger.warning('Problem with elastic search: %s', ex)
                 raise errors.ThirdPartyError(
-                    'Error connecting to elastic search.')
+                    'Elastic search 연결 오류.')
             except IOError:
-                raise errors.ProcessingError('Not an image.')
+                raise errors.ProcessingError('이미지가 아닙니다.')
             except Exception as ex:
-                raise errors.ThirdPartyError('Unknown error (%s).' % ex)
+                raise errors.ThirdPartyError('알 수 없는 에러 (%s).' % ex)
         return wrapper_inner
     return wrapper_outer
 

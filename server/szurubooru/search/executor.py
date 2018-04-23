@@ -145,14 +145,14 @@ class Executor:
         for anon_token in search_query.anonymous_tokens:
             if not self.config.anonymous_filter:
                 raise errors.SearchError(
-                    'Anonymous tokens are not valid in this context.')
+                    '익명 토큰은 이 컨텍스트에서 사용할 수 없습니다.')
             db_query = self.config.anonymous_filter(
                 db_query, anon_token.criterion, anon_token.negated)
 
         for named_token in search_query.named_tokens:
             if named_token.name not in self.config.named_filters:
                 raise errors.SearchError(
-                    'Unknown named token: %r. Available named tokens: %r.' % (
+                    '알 수 없는 명명된 토큰: %r. 가능한 명명된 토큰: %r.' % (
                         named_token.name,
                         _format_dict_keys(self.config.named_filters)))
             db_query = self.config.named_filters[named_token.name](
@@ -161,8 +161,8 @@ class Executor:
         for sp_token in search_query.special_tokens:
             if sp_token.value not in self.config.special_filters:
                 raise errors.SearchError(
-                    'Unknown special token: %r. '
-                    'Available special tokens: %r.' % (
+                    '알 수 없는 특수 토큰: %r. '
+                    '가능한 특수 토큰: %r.' % (
                         sp_token.value,
                         _format_dict_keys(self.config.special_filters)))
             db_query = self.config.special_filters[sp_token.value](
@@ -172,8 +172,8 @@ class Executor:
             for sort_token in search_query.sort_tokens:
                 if sort_token.name not in self.config.sort_columns:
                     raise errors.SearchError(
-                        'Unknown sort token: %r. '
-                        'Available sort tokens: %r.' % (
+                        '알 수 없는 정렬 토큰: %r. '
+                        '가능한 정렬 토큰: %r.' % (
                             sort_token.name,
                             _format_dict_keys(self.config.sort_columns)))
                 column, default_order = (

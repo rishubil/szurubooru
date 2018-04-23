@@ -13,7 +13,7 @@ def _get_comment(params: Dict[str, str]) -> model.Comment:
         comment_id = int(params['comment_id'])
     except TypeError:
         raise comments.InvalidCommentIdError(
-            'Invalid comment ID: %r.' % params['comment_id'])
+            '잘못된 댓글 ID: %r.' % params['comment_id'])
     return comments.get_comment_by_id(comment_id)
 
 

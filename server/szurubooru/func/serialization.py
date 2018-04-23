@@ -17,7 +17,7 @@ class BaseSerializer:
         for key in options:
             if key not in field_factories:
                 raise errors.ValidationError(
-                    'Invalid key: %r. Valid keys: %r.' % (
+                    '잘못된 키: %r. 올바른 키: %r.' % (
                         key, list(sorted(field_factories.keys()))))
             factory = field_factories[key]
             ret[key] = factory()

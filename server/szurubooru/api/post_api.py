@@ -14,7 +14,7 @@ def _get_post_id(params: Dict[str, str]) -> int:
         return int(params['post_id'])
     except TypeError:
         raise posts.InvalidPostIdError(
-            'Invalid post ID: %r.' % params['post_id'])
+            '잘못된 짤 ID: %r.' % params['post_id'])
 
 
 def _get_post(params: Dict[str, str]) -> model.Post:
@@ -187,7 +187,7 @@ def set_featured_post(
     featured_post = posts.try_get_featured_post()
     if featured_post and featured_post.post_id == post.post_id:
         raise posts.PostAlreadyFeaturedError(
-            'Post %r is already featured.' % post_id)
+            '짤 %r 는 이미 대문짤임.' % post_id)
     posts.feature_post(post, ctx.user)
     snapshots.modify(post, ctx.user)
     ctx.session.commit()

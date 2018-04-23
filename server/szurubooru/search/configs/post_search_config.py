@@ -43,7 +43,7 @@ def _create_score_filter(score: int) -> Filter:
         assert criterion
         if not getattr(criterion, 'internal', False):
             raise errors.SearchError(
-                'Votes cannot be seen publicly. Did you mean %r?'
+                '투표는 공개적으로 확인할 수 없습니다. %r를 시도해보세요.'
                 % 'special:liked')
         user_alias = sa.orm.aliased(model.User)
         score_alias = sa.orm.aliased(model.PostScore)
@@ -103,7 +103,7 @@ class PostSearchConfig(BaseSearchConfig):
                 assert self.user
                 if self.user.rank == 'anonymous':
                     raise errors.SearchError(
-                        'Must be logged in to use this feature.')
+                        '이 기능을 사용하기 위해서는 로그인해야 합니다.')
                 criterion = criteria.PlainCriterion(
                     original_text=self.user.name,
                     value=self.user.name)

@@ -61,7 +61,7 @@ def set_score(entity: model.Base, user: model.User, score: int) -> None:
         return
     if score not in (-1, 1):
         raise InvalidScoreValueError(
-            'Score %r is invalid. Valid scores: %r.' % (score, (-1, 1)))
+            '점수 %r 은 잘못된 값입니다. 올바른 점수: %r.' % (score, (-1, 1)))
     score_entity = _get_score_entity(entity, user)
     if score_entity:
         score_entity.score = score

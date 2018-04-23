@@ -84,7 +84,7 @@ def get_comment_by_id(comment_id: int) -> model.Comment:
     comment = try_get_comment_by_id(comment_id)
     if comment:
         return comment
-    raise CommentNotFoundError('Comment %r not found.' % comment_id)
+    raise CommentNotFoundError('댓글 %r 을(를) 찾을 수 없습니다.' % comment_id)
 
 
 def create_comment(
@@ -100,5 +100,5 @@ def create_comment(
 def update_comment_text(comment: model.Comment, text: str) -> None:
     assert comment
     if not text:
-        raise EmptyCommentTextError('Comment text cannot be empty.')
+        raise EmptyCommentTextError('댓글 내용이 반드시 필요합니다.')
     comment.text = text

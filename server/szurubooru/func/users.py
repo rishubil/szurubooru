@@ -180,7 +180,7 @@ def try_get_user_by_name(name: str) -> Optional[model.User]:
 def get_user_by_name(name: str) -> model.User:
     user = try_get_user_by_name(name)
     if not user:
-        raise UserNotFoundError('User %r not found.' % name)
+        raise UserNotFoundError('사용자 %r 을(를) 찾을 수 없습니다.' % name)
     return user
 
 
@@ -197,7 +197,7 @@ def try_get_user_by_name_or_email(name_or_email: str) -> Optional[model.User]:
 def get_user_by_name_or_email(name_or_email: str) -> model.User:
     user = try_get_user_by_name_or_email(name_or_email)
     if not user:
-        raise UserNotFoundError('User %r not found.' % name_or_email)
+        raise UserNotFoundError('사용자 %r 을(를) 찾을 수 없습니다.' % name_or_email)
     return user
 
 
@@ -218,17 +218,17 @@ def create_user(name: str, password: str, email: str) -> model.User:
 def update_user_name(user: model.User, name: str) -> None:
     assert user
     if not name:
-        raise InvalidUserNameError('Name cannot be empty.')
+        raise InvalidUserNameError('닉네임(ID)은 빈 값일 수 없습니다.')
     if util.value_exceeds_column_size(name, model.User.name):
-        raise InvalidUserNameError('User name is too long.')
+        raise InvalidUserNameError('닉네임(ID)이 너무 깁니다.')
     name = name.strip()
     name_regex = config.config['user_name_regex']
     if not re.match(name_regex, name):
         raise InvalidUserNameError(
-            'User name %r must satisfy regex %r.' % (name, name_regex))
+            '닉네임(ID) %r 은(는) 다음의 정규식을 만족해야 합니다: %r' % (name, name_regex))
     other_user = try_get_user_by_name(name)
     if other_user and other_user.user_id != user.user_id:
-        raise UserAlreadyExistsError('User %r already exists.' % name)
+        raise UserAlreadyExistsError('사용자 %r 은(는) 이미 존재합니다.' % name)
     if user.name and files.has(get_avatar_path(user.name)):
         files.move(get_avatar_path(user.name), get_avatar_path(name))
     user.name = name
@@ -237,11 +237,11 @@ def update_user_name(user: model.User, name: str) -> None:
 def update_user_password(user: model.User, password: str) -> None:
     assert user
     if not password:
-        raise InvalidPasswordError('Password cannot be empty.')
+        raise InvalidPasswordError('비밀번호는 빈 값일 수 없습니다.')
     password_regex = config.config['password_regex']
     if not re.match(password_regex, password):
         raise InvalidPasswordError(
-            'Password must satisfy regex %r.' % password_regex)
+            '비밀번호는 다음의 정규식을 만족해야 합니다: %r' % password_regex)
     user.password_salt = auth.create_password()
     password_hash, revision = auth.get_password_hash(
         user.password_salt, password)
@@ -253,9 +253,9 @@ def update_user_email(user: model.User, email: str) -> None:
     assert user
     email = email.strip()
     if util.value_exceeds_column_size(email, model.User.email):
-        raise InvalidEmailError('Email is too long.')
+        raise InvalidEmailError('이메일이 너무 깁니다.')
     if not util.is_valid_email(email):
-        raise InvalidEmailError('E-mail is invalid.')
+        raise InvalidEmailError('잘못된 이메일입니다.')
     user.email = email or None
 
 
@@ -263,17 +263,17 @@ def update_user_rank(
         user: model.User, rank: str, auth_user: model.User) -> None:
     assert user
     if not rank:
-        raise InvalidRankError('Rank cannot be empty.')
+        raise InvalidRankError('등급은 빈 값일 수 없습니다.')
     rank = util.flip(auth.RANK_MAP).get(rank.strip(), None)
     all_ranks = list(auth.RANK_MAP.values())
     if not rank:
         raise InvalidRankError(
-            'Rank can be either of %r.' % all_ranks)
+            '등급은 다음중 하나여야 합니다: %r' % all_ranks)
     if rank in (model.User.RANK_ANONYMOUS, model.User.RANK_NOBODY):
-        raise InvalidRankError('Rank %r cannot be used.' % auth.RANK_MAP[rank])
+        raise InvalidRankError('등급 %r 은(는) 사용할 수 없습니다.' % auth.RANK_MAP[rank])
     if all_ranks.index(auth_user.rank) \
             < all_ranks.index(rank) and get_user_count() > 0:
-        raise errors.AuthError('Trying to set higher rank than your own.')
+        raise errors.AuthError('당신보다 높은 등급을 지정할 수 없습니다.')
     user.rank = rank
 
 
@@ -290,7 +290,7 @@ def update_user_avatar(
         if not avatar_content:
             if files.has(avatar_path):
                 return
-            raise InvalidAvatarError('Avatar content missing.')
+            raise InvalidAvatarError('아바타 컨텐츠가 누락되었습니다.')
         image = images.Image(avatar_content)
         image.resize_fill(
             int(config.config['thumbnails']['avatar_width']),
@@ -298,7 +298,7 @@ def update_user_avatar(
         files.save(avatar_path, image.to_png())
     else:
         raise InvalidAvatarError(
-            'Avatar style %r is invalid. Valid avatar styles: %r.' % (
+            '아바타 스타일 %r 은(는) 잘못된 값입니다. 올바른 스타일 값: %r.' % (
                 avatar_style, ['gravatar', 'manual']))
 
 

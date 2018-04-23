@@ -52,7 +52,7 @@ class Image:
                 ] + cli
         content = self._execute(cli, ignore_error_if_data=True)
         if not content:
-            raise errors.ProcessingError('Error while resizing image.')
+            raise errors.ProcessingError('이미지 리사이징 오류.')
         self.content = content
         self._reload_info()
 
@@ -161,13 +161,13 @@ class Image:
             out, err = proc.communicate(input=self.content)
             if proc.returncode != 0:
                 logger.warning(
-                    'Failed to execute ffmpeg command (cli=%r, err=%r)',
+                    'ffmpeg 명령어 실행 실패 (cli=%r, err=%r)',
                     ' '.join(shlex.quote(arg) for arg in cli),
                     err)
                 if ((len(out) > 0 and not ignore_error_if_data)
                         or len(out) == 0):
                     raise errors.ProcessingError(
-                        'Error while processing image.\n'
+                        '이미지 처리 중 오류.\n'
                         + err.decode('utf-8'))
             return out
 
@@ -184,4 +184,4 @@ class Image:
         if len(self.info['streams']) < 1:
             logger.warning('The video contains no video streams.')
             raise errors.ProcessingError(
-                'The video contains no video streams.')
+                '동영상에 동영상 스트림이 없습니다.')
