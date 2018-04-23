@@ -2,6 +2,7 @@
     <div class='messages'></div>
     <header>
         <h1><%- ctx.name %></h1>
+        <h2><a href="https://tgd.kr/3947875">▷▶ 해외 국적 소유자를 찾습니다 ◁◀</a></h2>
     </header>
     <% if (ctx.canListPosts) { %>
         <form class='horizontal'>
