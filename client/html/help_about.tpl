@@ -1,4 +1,4 @@
-<p>Yeokka &amp; Funzinnu booru(이하 역펀부루)는 <a href='https://www.twitch.tv/yeokka'>Yeokka</a>와 <a href='https://www.twitch.tv/funzinnu'>Funzinnu</a>와 관련된 짤을 공유하는 <a href='https://github.com/rr-/szurubooru'>Szurubooru</a> 기반 이미지 보드 사이트입니다.</p>
+<p>Yeokka &amp; Funzinnu booru는 <a href='https://www.twitch.tv/yeokka'>Yeokka</a> 및 <a href='https://www.twitch.tv/funzinnu'>Funzinnu</a>와 관련된 짤을 공유하는 <a href='https://github.com/rr-/szurubooru'>Szurubooru</a> 기반 이미지 보드 사이트입니다.</p>
 
 <p>파비콘 이미지는 <a href="http://yfbooru.yeokka.la/post/174">@174</a>를 사용했습니다.</p>
 

@@ -1,48 +1,8 @@
-# szurubooru
+# Yeokka & Funzinnu booru
 
-Szurubooru is an image board engine inspired by services such as Danbooru,
-Gelbooru and Moebooru dedicated for small and medium communities. Its name [has
-its roots in Polish language and has onomatopeic meaning of scraping or
-scrubbing](http://sjp.pwn.pl/sjp/;2527372). It is pronounced as *shoorubooru*.
+Yeokka & Funzinnu booru는 [Yeokka](https://www.twitch.tv/yeokka) 및 [Funzinnu](https://www.twitch.tv/funzinnu)와 관련된 짤을 공유하는 [Szurubooru](https://github.com/rr-/szurubooru) 기반 이미지 보드 사이트입니다.
 
-## Features
-
-- Post content: images (JPG, PNG, GIF, animated GIF), videos (MP4, WEBM), Flash animations
-- Post comments
-- Post notes / annotations, including arbitrary polygons
-- Rich JSON REST API ([see documentation](https://github.com/rr-/szurubooru/blob/master/API.md))
-- Token based authentication for clients
-- Rich search system
-- Rich privilege system
-- Autocomplete in search and while editing tags
-- Tag categories
-- Tag suggestions
-- Tag implications (adding a tag automatically adds another)
-- Tag aliases
-- Duplicate detection
-- Post rating and favoriting; comment rating
-- Polished UI
-- Browser configurable endless paging
-- Browser configurable backdrop grid for transparent images
-
-## Requirements
-
-- Python 3.5
-- Postgres
-- FFmpeg
-- node.js
-
-[See installation instructions.](https://github.com/rr-/szurubooru/blob/master/INSTALL.md)
-
-## Screenshots
-
-Post list:
-
-![20160908_180032_fsk](https://cloud.githubusercontent.com/assets/1045476/18356730/3f1123d6-75ee-11e6-85dd-88a7615243a0.png)
-
-Post view:
-
-![20160908_180429_lmp](https://cloud.githubusercontent.com/assets/1045476/18356731/3f1566ee-75ee-11e6-9594-e86ca7347b0f.png)
+Szurubooru의 커밋 [2a69f0193f9e5aa451e0dbcb8c89070f3e49ffa5](https://github.com/rr-/szurubooru/commit/2a69f0193f9e5aa451e0dbcb8c89070f3e49ffa5)에서 포크하여 개발되었습니다.
 
 ## License
 
