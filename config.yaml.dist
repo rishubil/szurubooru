@@ -41,9 +41,12 @@ convert:
 
 # used to send password reset e-mails
 smtp:
+    starttls: no
+    ssl: no
     host: # example: localhost
     port: # example: 25
     user: # example: bot
+    user_display: # example: szurubooru
     pass: # example: groovy123
     # host can be left empty, in which case it is recommended to fill contactEmail.
 

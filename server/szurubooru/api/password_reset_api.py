@@ -2,6 +2,8 @@ from typing import Dict
 from szurubooru import config, errors, rest
 from szurubooru.func import auth, mailer, users, versions
 from hashlib import md5
+from email.header import Header
+from email.utils import formataddr
 
 
 MAIL_SUBJECT = 'Password reset for {name}'
@@ -24,7 +26,7 @@ def start_password_reset(
     url = '%s/password-reset/%s:%s' % (
         config.config['base_url'].rstrip('/'), user.name, token)
     mailer.send_mail(
-        'noreply@%s' % config.config['name'],
+        formataddr((str(Header(config.config['smtp']['user_display'], 'utf-8')), config.config['smtp']['user'])),
         user.email,
         MAIL_SUBJECT.format(name=config.config['name']),
         MAIL_BODY.format(name=config.config['name'], url=url))
