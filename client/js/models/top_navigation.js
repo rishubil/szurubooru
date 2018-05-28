@@ -55,6 +55,10 @@ class TopNavigation extends events.EventTarget {
     setTitle(title) {
         document.oldTitle = null;
         document.title = config.name + (title ? (' – ' + title) : '');
+        gtag('config', 'UA-119887508-1', {
+            'page_path': location.pathname,
+            'page_title': title
+        });
     }
 
     showAll() {

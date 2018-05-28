@@ -41,9 +41,6 @@ class Context {
 
     pushState() {
         history.pushState(this.state, this.title, this.canonicalPath);
-        gtag('config', 'UA-119887508-1', {
-            'page_path': this.path
-        });
     }
 
     replaceState() {
