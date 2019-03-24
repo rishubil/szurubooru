@@ -31,6 +31,7 @@ services:
     environment:
       - cluster.name=docker-cluster
       - bootstrap.memory_lock=true
+      - xpack.security.enabled=false
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
     ulimits:
       memlock:
@@ -41,23 +42,6 @@ services:
     networks:
       - default
     restart: unless-stopped
-
-  http-redirect:
-    image: geldim/https-redirect
-    restart: always
-    expose:
-      - "80"
-    networks:
-      - traefik
-    labels:
-      - "traefik.enable=true"
-      - "traefik.backend=yfbooru-redirect"
-      - "traefik.protocol=http"
-      - "traefik.port=80"
-      - "traefik.frontend.entryPoints=http"
-      - "traefik.frontend.rule=HostRegexp:yfbooru.yeokka.la"
-      - "traefik.docker.network=traefik_proxy"
-      - "traefik.frontend.priority=10"
 
   frontend:
     build:
@@ -72,8 +56,10 @@ services:
       - "traefik.backend=yfbooru"
       - "traefik.protocol=http"
       - "traefik.port=80"
-      - "traefik.frontend.entryPoints=https"
+      - "traefik.frontend.entryPoints=https,http"
       - "traefik.frontend.rule=Host:yfbooru.yeokka.la"
+      - "traefik.frontend.redirect.entryPoint=https"
+      - "traefik.frontend.redirect.permanent=false"
       - "traefik.docker.network=traefik_proxy"
       - "traefik.frontend.priority=1"
     networks:
